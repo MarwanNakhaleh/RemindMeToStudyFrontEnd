@@ -1,0 +1,48 @@
+---
+language: python
+python:
+  - "3.9"
+before_install:
+  - python -m pip install --upgrade pip
+install:
+  - pip install -r requirements-test.txt
+  - pip install awscli
+  - pip install aws-sam-cli
+  - pip install cfn-lint
+
+jobs:
+  include:
+    - stage: create-deploy-resources
+      script:
+        - aws configure set aws_access_key_id $AWS_ACCESS_KEY
+        - aws configure set aws_secret_access_key $AWS_SECRET_KEY
+        - aws configure set default.region us-east-1
+        - aws cloudformation deploy --template-file deploy_bucket.yaml --stack-name DeployResources
+    - stage: test
+      script:
+        - cd backend/
+        - pytest
+    - stage: deploy-backend
+      provider: script
+      script:
+        - rm -rf test/
+        - cfn-lint template.yaml
+        - sam validate
+        - sam build --debug
+        - sam package --s3-bucket bransonsolutions-codedeploy --output-template-file out.yaml --region us-east-1
+        - sam deploy --template-file out.yaml --stack-name StudyTimeSelector --region us-east-1 --no-fail-on-empty-changeset  --capabilities CAPABILITY_NAMED_IAM
+    # - stage: deploy-frontend
+    #   cache:
+    #     directories:
+    #       - frontend/node_modules
+    #   script:
+    #     - cd frontend/
+    #     - npm test
+    #     - npm run build
+    #   deploy:
+    #     provider: pages
+    #     skip_cleanup: false
+    #     github_token: $GITHUB_TOKEN
+    #     local_dir: frontend/build
+    #     on:
+    #       branch: master
