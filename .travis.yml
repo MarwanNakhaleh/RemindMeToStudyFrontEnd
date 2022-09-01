@@ -10,5 +10,5 @@ jobs:
       - aws configure set aws_secret_access_key $AWS_SECRET_KEY
       - aws configure set default.region us-east-1
       - npm run build
-      - aws cloudformation deploy --stack-name Z2CFCEFrontEnd --template-file template.yaml --capabilities CAPABILITY_NAMED_IAM
+      - aws cloudformation deploy --stack-name Z2CFCE-StudyReminder-FrontEnd --template-file template.yaml --capabilities CAPABILITY_NAMED_IAM
       - aws s3 cp ./build s3://z2c-fce-frontend --recursive

@@ -4,7 +4,7 @@ Description: 'Static website hosting with S3 and CloudFront'
 Parameters:
   BucketName:
     Type: String
-    Default: 'z2c-fce-frontend'
+    Default: 'z2c-fce-studyreminder-frontend'
 
 Resources:
   # Create the bucket to contain the website HTML
