@@ -5,9 +5,9 @@ const Success = ({ infoState }) => {
   const [infoSaveResult, setInfoSaveResult] = useState(null);
 
   useEffect(() => {
-    const requestBody = {
+    const requestBody = JSON.stringify({
       "phone_number": infoState.phoneNumber.trim()
-    };
+    });
     fetch("https://dsgpm5nm35.execute-api.us-east-1.amazonaws.com/live/studyreminder", {
       method: "POST",
       body: requestBody
