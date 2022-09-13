@@ -6,9 +6,11 @@ const Success = ({ infoState }) => {
 
   useEffect(() => {
     const requestBody = JSON.stringify({
+      "first_name": infoState.firstName,
+      "last_name": infoState.lastName,
       "phone_number": infoState.phoneNumber.trim()
     });
-    fetch("https://dsgpm5nm35.execute-api.us-east-1.amazonaws.com/live/studyreminder", {
+    fetch("https://82wjseel6d.execute-api.us-east-1.amazonaws.com/live/studyreminder", {
       method: "POST",
       body: requestBody
     })
