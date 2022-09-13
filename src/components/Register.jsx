@@ -12,11 +12,11 @@ const Register = () => {
     lastName: "",
     phoneNumber: "",
     timeZone: {
-      value: "America/Bogota",
-      label: "(GMT-5:00) Bogota, Lima, Quito",
-      offset: -5,
-      abbrev: "COT",
-      altName: "Colombia Standard Time",
+      value: "America/Detroit",
+      label: "(GMT-4:00) Eastern Time",
+      offset: -4,
+      abbrev: "EDT",
+      altName: "Eastern Daylight Time",
     },
     daysOfWeek: {
       Monday: false,
@@ -73,14 +73,15 @@ const Register = () => {
           ...infoState,
           firstName: input["firstName"],
           lastName: input["lastName"],
-          phoneNumber: input["phoneNumber"]
+          phoneNumber: input["phoneNumber"],
         }));
         break;
       default:
-        console.log("error in handling change ahead of step " + infoState.step);
+        console.error(
+          "error in handling change ahead of step " + infoState.step
+        );
         break;
     }
-    console.log("we're handling change ahead of step " + infoState.step);
   };
 
   const determinePage = () => {
@@ -120,7 +121,7 @@ const Register = () => {
           />
         );
       case 5:
-        return <Success />;
+        return <Success infoState={infoState} />;
       default:
         return <></>;
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { Auth } from 'aws-amplify';
-import createAwsClient from 'agnostic-aws-signature';
+// import { Auth } from 'aws-amplify';
+// import createAwsClient from 'agnostic-aws-signature';
 
 const Confirmation = ({ nextStep, previousStep, infoState }) => {
   const renderDailyInformation = () => {
