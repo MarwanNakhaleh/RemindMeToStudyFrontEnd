@@ -39,6 +39,26 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Ref S3Bucket
 
+  CloudFrontCachePolicy:
+    Type: AWS::CloudFront::CachePolicy
+    Properties: 
+      CachePolicyConfig: 
+        DefaultTTL: 300
+        MaxTTL: 3600
+        MinTTL: 0
+        Name: Z2C-FCE-Cloudfront-Cache-Policy
+        ParametersInCacheKeyAndForwardedToOrigin: 
+          CookiesConfig: 
+            CookieBehavior: none
+          EnableAcceptEncodingBrotli: false
+          EnableAcceptEncodingGzip: false
+          HeadersConfig: 
+            HeaderBehavior: whitelist
+            Headers: 
+              - Authorization
+          QueryStringsConfig: 
+            QueryStringBehavior: none
+
   # Configure CloudFront
   CloudFrontDistribution:
     Type: 'AWS::CloudFront::Distribution'
